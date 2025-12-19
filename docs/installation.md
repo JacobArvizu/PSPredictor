@@ -1,5 +1,7 @@
 # PSPredictor Installation Guide
 
+> **Quick Reference**: For offline/airgapped installation, see the [Offline Installation Quick Reference](OFFLINE_INSTALLATION_QUICK_REFERENCE.md) for fast commands and common scenarios.
+
 ## 📦 Installation
 
 ### Prerequisites

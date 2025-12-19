@@ -63,6 +63,8 @@ Downloads PSPredictor module package locally for offline installation and distri
 
 **Complete Documentation**: See [docs/installation.md](../docs/installation.md#offline-installation-airgapped-environments) for detailed offline installation workflow.
 
+**Quick Reference**: For fast commands and common scenarios, see [Offline Installation Quick Reference](../docs/OFFLINE_INSTALLATION_QUICK_REFERENCE.md).
+
 ## Legacy Scripts (v1.x)
 
 The `src` directory contains legacy PowerShell-based completions from PSPredictor v1.x. These are maintained for backward compatibility and reference but are being replaced by the C# .NET 9.0 binary module in v2.0.
