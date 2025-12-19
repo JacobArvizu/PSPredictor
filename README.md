@@ -50,6 +50,14 @@ Enable-PSPredictor
 Get-PSPredictorStatus
 ```
 
+**Offline Installation**: For airgapped environments or offline scenarios, use our local download script:
+```powershell
+# Download package for offline installation
+.\scripts\Install-PSPredictorLocal.ps1 -OutputPath "C:\Packages"
+
+# See docs/installation.md for complete offline installation workflow
+```
+
 ### Try It Now
 
 ```powershell
