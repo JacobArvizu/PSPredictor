@@ -21,46 +21,9 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
 
 jobs:
-  validate-version:
-    name: Validate Version
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.extract-version.outputs.version }}
-      is-prerelease: ${{ steps.extract-version.outputs.is-prerelease }}
-    
-    steps:
-    - name: Extract version from tag or input
-      id: extract-version
-      run: |
-        if [ "${{ github.event_name }}" == "push" ]; then
-          # Extract version from tag (remove 'v' prefix)
-          VERSION="${GITHUB_REF#refs/tags/v}"
-        else
-          # Use manual input
-          VERSION="${{ github.event.inputs.version }}"
-        fi
-        
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-        
-        # Check if it's a prerelease (contains -, alpha, beta, rc, etc.)
-        if [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]]; then
-          if [[ "$VERSION" =~ - ]]; then
-            echo "is-prerelease=true" >> $GITHUB_OUTPUT
-          else
-            echo "is-prerelease=false" >> $GITHUB_OUTPUT
-          fi
-        else
-          echo "❌ Invalid version format: $VERSION"
-          exit 1
-        fi
-        
-        echo "📦 Publishing version: $VERSION"
-        echo "🏷️ Is prerelease: $([ "$VERSION" =~ - ] && echo "true" || echo "false")"
-
   build-and-package:
     name: Build and Package
     runs-on: windows-latest
-    needs: validate-version
     environment: 
       name: ${{ needs.validate-version.outputs.is-prerelease == 'true' && 'prerelease' || 'production' }}
     
@@ -201,7 +164,6 @@ jobs:
   publish-to-powershell-gallery:
     name: Publish to PowerShell Gallery
     runs-on: windows-latest
-    needs: [validate-version, build-and-package]
     if: success()
     environment: 
       name: ${{ needs.validate-version.outputs.is-prerelease == 'true' && 'prerelease' || 'production' }}
